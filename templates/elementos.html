@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Productos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+    <div class="header">
+        <h1>Nuestros Productos</h1>
+    </div>
+    
+    <div class="container">
+        <div class="products-grid">
+            {% for producto in productos %}
+                <div class="product-card">
+                    <h3 class="product-title">{{ producto.nombre }}</h3>
+                    <p class="product-price">${{ producto.precio }}</p>
+                    <form method="POST" action="{{ url_for('agregar_al_pedido') }}">
+                        <input type="hidden" name="producto_id" value="{{ producto.id }}">
+                        <button type="submit" class="btn">Agregar</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

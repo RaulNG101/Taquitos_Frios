@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>POS - Inicio</title>
+</head>
+<body>
+    <h1>Selecciona una categoría</h1>
+    {% for categoria in categorias %}
+        <a href="{{ url_for('elementos', categoria=categoria) }}">
+            <button>{{ categoria.capitalize() }}</button>
+        </a>
+    {% endfor %}
+    
+    <a href="{{ url_for('ver_pedido') }}">
+        <button>Ver Pedido</button>
+    </a>
+</body>
+</html>

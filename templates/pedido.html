@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Pedido Actual</title>
+</head>
+<body>
+    <h1>Tu Pedido</h1>
+    
+    <ul>
+        {% for item in pedido %}
+            <li>{{ item.nombre }} - ${{ item.precio }}</li>
+        {% endfor %}
+    </ul>
+    
+    <h3>Total: ${{ total }}</h3>
+    
+    <a href="{{ url_for('index') }}">
+        <button>Seguir Comprando</button>
+    </a>
+    
+    <a href="{{ url_for('limpiar_pedido') }}">
+        <button style="color: red;">Limpiar Pedido</button>
+    </a>
+</body>
+</html>
