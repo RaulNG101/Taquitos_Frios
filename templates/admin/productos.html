@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Administrar Productos</title>
+</head>
+<body>
+    <header class="header">
+        <h1>Administración de Productos</h1>
+    </header>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="admin-actions">
+            <a href="{{ url_for('nuevo_producto') }}" class="btn btn-primary">➕ Nuevo Producto</a>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">← Volver al POS</a>
+        </div>
+        
+        <div class="product-grid">
+            {% for producto in productos %}
+            <div class="product-card">
+                {% if producto['imagen'] %}
+                <img src="{{ url_for('uploaded_file', filename=producto['imagen']) }}" alt="{{ producto['nombre'] }}" class="product-img">
+                {% else %}
+                <div class="no-image">🖼️ Sin imagen</div>
+                {% endif %}
+                <h3>{{ producto['nombre'] }}</h3>
+                <p class="product-desc">{{ producto['descripcion'] }}</p>
+                <p class="product-price">${{ "%.2f"|format(producto['precio']) }}</p>
+                <p class="product-cat">{{ producto['categoria'] }}</p>
+                <div class="product-actions">
+                    <a href="{{ url_for('editar_producto', id=producto['id']) }}" class="btn btn-edit">✏️ Editar</a>
+                    <a href="{{ url_for('eliminar_producto', id=producto['id']) }}" class="btn btn-delete" onclick="return confirm('¿Eliminar este producto permanentemente?')">🗑️ Eliminar</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>

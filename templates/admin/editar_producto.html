@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Editar Producto</title>
+</head>
+<body>
+    <header class="header">
+        <h1>Editar Producto</h1>
+    </header>
+
+    <main class="container">
+        <form method="POST" enctype="multipart/form-data" class="product-form">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="{{ producto['nombre'] }}" required class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="descripcion">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" class="form-control">{{ producto['descripcion'] }}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="precio">Precio:</label>
+                <input type="number" id="precio" name="precio" step="0.01" min="0" value="{{ producto['precio'] }}" required class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="categoria">Categoría:</label>
+                <input type="text" id="categoria" name="categoria" value="{{ producto['categoria'] }}" required class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label>Imagen actual:</label>
+                {% if producto['imagen'] %}
+                <img src="{{ url_for('uploaded_file', filename=producto['imagen']) }}" class="current-image">
+                {% else %}
+                <p>No hay imagen</p>
+                {% endif %}
+                <label for="imagen">Cambiar imagen:</label>
+                <input type="file" id="imagen" name="imagen" accept="image/*" class="form-control">
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">💾 Guardar Cambios</button>
+                <a href="{{ url_for('admin_productos') }}" class="btn btn-secondary">✖ Cancelar</a>
+            </div>
+        </form>
+    </main>
+</body>
+</html>

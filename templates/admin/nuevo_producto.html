@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Nuevo Producto - McDonald's POS</title>
+</head>
+<body>
+    <header class="header">
+        <h1>🍟 Añadir Nuevo Producto</h1>
+    </header>
+
+    <main class="container">
+        <div class="admin-panel">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST" enctype="multipart/form-data" class="product-form">
+                <div class="form-group">
+                    <label for="nombre">Nombre del Producto:</label>
+                    <input type="text" id="nombre" name="nombre" required 
+                           class="form-input" placeholder="Ej: Big Mac">
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion" 
+                              class="form-input" placeholder="Ingrese una descripción del producto"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="precio">Precio ($):</label>
+                    <input type="number" id="precio" name="precio" step="0.01" min="0" required 
+                           class="form-input" placeholder="Ej: 5.99">
+                </div>
+                
+                <div class="form-group">
+                    <label for="categoria">Categoría:</label>
+                    <select id="categoria" name="categoria" required class="form-input">
+                        <option value="">Seleccione una categoría</option>
+                        <option value="hamburguesas">🍔 Hamburguesas</option>
+                        <option value="bebidas">🥤 Bebidas</option>
+                        <option value="postres">🍦 Postres</option>
+                        <option value="combos">🍟 Combos</option>
+                        <option value="acompañamientos">🍟 Acompañamientos</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="imagen">Imagen del Producto:</label>
+                    <div class="file-upload">
+                        <input type="file" id="imagen" name="imagen" accept="image/*">
+                        <label for="imagen" class="file-upload-label">
+                            <span class="file-upload-icon">📤</span>
+                            <span class="file-upload-text">Seleccionar archivo</span>
+                        </label>
+                        <span class="file-upload-filename">Ningún archivo seleccionado</span>
+                    </div>
+                    <small class="form-text">Formatos permitidos: JPG, PNG, GIF (Máx. 2MB)</small>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-icon">✔</span> Guardar Producto
+                    </button>
+                    <a href="{{ url_for('admin_productos') }}" class="btn btn-secondary">
+                        <span class="btn-icon">✖</span> Cancelar
+                    </a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        // Mostrar nombre del archivo seleccionado
+        document.getElementById('imagen').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'Ningún archivo seleccionado';
+            document.querySelector('.file-upload-filename').textContent = fileName;
+        });
+    </script>
+</body>
+</html>

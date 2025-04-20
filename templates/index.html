@@ -1,19 +1,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>POS - Inicio</title>
 </head>
 <body>
-    <h1>Selecciona una categoría</h1>
-    {% for categoria in categorias %}
-        <a href="{{ url_for('elementos', categoria=categoria) }}">
-            <button>{{ categoria.capitalize() }}</button>
-        </a>
-    {% endfor %}
-    
-    <a href="{{ url_for('ver_pedido') }}">
-        <button>Ver Pedido</button>
-    </a>
+    <header class="header">
+        <h1>McDonald's POS System</h1>
+    </header>
+
+    <main class="container">
+        <h1>Selecciona una categoría</h1>
+        
+        <div class="categories-grid">
+            {% for categoria in categorias %}
+                <a href="{{ url_for('elementos', categoria=categoria) }}" class="category-card">
+                    <div class="category-icon">
+                        {% if categoria == 'hamburguesas' %}🍔
+                        {% elif categoria == 'bebidas' %}🥤
+                        {% elif categoria == 'postres' %}🍦
+                        {% elif categoria == 'combos' %}🍟
+                        {% else %}🔘{% endif %}
+                    </div>
+                    <h3>{{ categoria.capitalize() }}</h3>
+                </a>
+            {% endfor %}
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('ver_pedido') }}" class="btn btn-primary">
+                Ver Pedido {% if pedido_count > 0 %}({{ pedido_count }}){% endif %}
+            </a>
+            <a href="{{ url_for('admin_productos') }}" class="btn btn-secondary">
+                Administración
+            </a>
+        </div>
+    </main>
+
+    <!-- Notificaciones flash -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category in ['added_product', 'removed_product'] %}
+                    <div class="alert-notification {{ category }}">
+                        {{ message }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 </body>
 </html>

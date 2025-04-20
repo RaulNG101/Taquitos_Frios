@@ -1,26 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Productos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{{ categoria.nombre|capitalize }} - McDonald's</title>
+</head>
 <body>
-    <div class="header">
-        <h1>Nuestros Productos</h1>
-    </div>
-    
-    <div class="container">
+    <header class="header" style="background: linear-gradient(135deg, {{ categoria.color_fondo }}, var(--mc-yellow));">
+        <h1>{{ categoria.nombre|capitalize }}</h1>
+    </header>
+
+    <main class="container">
+        {% if categoria.imagen %}
+        <div class="category-banner">
+            <img src="{{ url_for('uploaded_file', filename=categoria.imagen) }}" 
+                 alt="{{ categoria.nombre }}" class="banner-img">
+        </div>
+        {% endif %}
+        
         <div class="products-grid">
             {% for producto in productos %}
-                <div class="product-card">
-                    <h3 class="product-title">{{ producto.nombre }}</h3>
-                    <p class="product-price">${{ producto.precio }}</p>
-                    <form method="POST" action="{{ url_for('agregar_al_pedido') }}">
-                        <input type="hidden" name="producto_id" value="{{ producto.id }}">
-                        <button type="submit" class="btn">Agregar</button>
-                    </form>
-                </div>
+            <div class="product-card">
+                {% if producto['imagen'] %}
+                <img src="{{ url_for('uploaded_file', filename=producto['imagen']) }}" 
+                     alt="{{ producto['nombre'] }}" class="product-img">
+                {% else %}
+                <div class="no-image">🖼️</div>
+                {% endif %}
+                <h3 class="product-title">{{ producto['nombre'] }}</h3>
+                <p class="product-desc">{{ producto['descripcion'] }}</p>
+                <p class="product-price">${{ "%.2f"|format(producto['precio']) }}</p>
+                <a href="{{ url_for('agregar_al_pedido', producto_id=producto['id']) }}" 
+                   class="btn btn-primary">➕ Agregar</a>
+            </div>
             {% endfor %}
         </div>
-    </div>
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">← Volver</a>
+            <a href="{{ url_for('ver_pedido') }}" class="btn btn-primary">🛒 Ver Pedido</a>
+        </div>
+    </main>
 </body>
 </html>
