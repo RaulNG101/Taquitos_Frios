@@ -1,81 +1,178 @@
-/* static/css/style.css */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+/* static/style.css */
+/* Fuente oficial de McDonald's (similar) */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 :root {
-    --orange-main: #FF6B00;
-    --orange-light: #FFA459;
-    --white: #FFF;
-    --gray-light: #F8F8F8;
+  /* Paleta McDonald's */
+  --mc-red: #DA291C;    /* Rojo característico */
+  --mc-yellow: #FFC72C; /* Amarillo icónico */
+  --mc-orange: #F7931E; /* Naranja alternativo */
+  --white: #FFFFFF;
+  --black: #27251F;
+  --gray-light: #F5F5F5;
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--white);
-    margin: 0;
-    padding: 0;
+  background-color: var(--white);
+  color: var(--black);
 }
 
+/* ---- Header estilo McDonald's ---- */
 .header {
-    background-color: var(--orange-main);
-    color: var(--white);
-    padding: 1.5rem;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, var(--mc-orange), var(--mc-yellow));
+  color: var(--white);
+  padding: 1.2rem;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-bottom: 3px solid var(--mc-red);
 }
 
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* ---- Contenedor Principal ---- */
 .container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background-color: var(--white);
 }
 
-/* Botones */
+/* ---- Botones estilo McDonald's ---- */
 .btn {
-    display: inline-block;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  display: inline-block;
+  padding: 1rem 1.8rem;
+  border: none;
+  border-radius: 50px; /* Bordes redondeados como McDonald's */
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.btn-orange {
-    background-color: var(--orange-main);
-    color: var(--white);
-    border: 2px solid var(--orange-main);
+.btn-primary {
+  background-color: var(--mc-yellow);
+  color: var(--black);
 }
 
-.btn-orange:hover {
-    background-color: var(--orange-light);
-    border-color: var(--orange-light);
+.btn-primary:hover {
+  background-color: var(--mc-orange);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Productos */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
+.btn-secondary {
+  background-color: var(--white);
+  color: var(--mc-red);
+  border: 2px solid var(--mc-red);
 }
 
+/* ---- Tarjetas de Producto ---- */
 .product-card {
-    background: var(--white);
-    border: 1px solid var(--gray-light);
-    border-radius: 10px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
+  background: var(--white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--gray-light);
+  transition: all 0.3s;
 }
 
 .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  border-color: var(--mc-yellow);
 }
 
-.price {
-    color: var(--orange-main);
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin: 0.5rem 0;
+.product-title {
+  color: var(--mc-red);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-price {
+  font-weight: 700;
+  color: var(--black);
+  font-size: 1.4rem;
+}
+
+/* ---- Panel de Pedido ---- */
+.order-panel {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-top: 6px solid var(--mc-red);
+}
+
+.order-title {
+  color: var(--mc-red);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px dashed var(--gray-light);
+  font-size: 1.1rem;
+}
+
+.order-total {
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--mc-red);
+  text-align: right;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid var(--mc-yellow);
+}
+
+/* ---- Grid de Productos ---- */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+/* ---- Efectos Especiales ---- */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.highlight {
+  animation: pulse 1s infinite;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+  
+  .btn {
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+  }
 }
