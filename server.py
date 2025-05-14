@@ -162,7 +162,7 @@ def nuevo_producto():
         ''', (nombre, descripcion, precio, imagen, categoria))
         db.commit()
         
-        flash('Producto creado exitosamente', 'success')
+        flash('Producto  creado exitosamente', 'success')
         return redirect(url_for('admin_productos'))
     
     return render_template('admin/nuevo_producto.html')
